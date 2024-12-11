@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table Seating and Agenda</title>
+    <style>
+        body {
+            font-family: 'Great Vibes', cursive;
+            margin: 0;
+            padding: 0;
+            background: url('https://www.freepik.com/free-photo/outer-space-background_4246756.htm#fromView=search&page=1&position=46&uuid=171d63b2-672a-4273-9103-ea08beedcf2f') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 300px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid white;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        h1, h3, p {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        strong {
+            color: #ffdd57;
+        }
+    </style>
+    <script>
+        const data = [
+            { name: "John Doe", table: "Table 1" },
+            { name: "Jane Smith", table: "Table 1" },
+            { name: "Alice Johnson", table: "Table 2" },
+            { name: "Bob Brown", table: "Table 1" },
+            { name: "Mary White", table: "Table 2" }
+        ];
+
+        const agenda = "Wedding Ceremony and Reception";
+
+        function searchName() {
+            const input = document.getElementById("nameInput").value.toLowerCase();
+            const resultDiv = document.getElementById("result");
+            const result = data.find(person => person.name.toLowerCase().includes(input));
+
+            if (input.trim() === "") {
+                resultDiv.innerHTML = `
+                    <h3>Welcome to the Wedding!</h3>
+                    <p>Today's agenda: <strong>${agenda}</strong></p>
+                `;
+            } else if (result) {
+                const tableMates = data
+                    .filter(person => person.table === result.table && person.name.toLowerCase() !== result.name.toLowerCase())
+                    .map(person => person.name);
+
+                resultDiv.innerHTML = `
+                    <h3>Welcome, ${result.name}!</h3>
+                    <p>Your table: <strong>${result.table}</strong></p>
+                    <p>Today's agenda: <strong>${agenda}</strong></p>
+                    <p>Your tablemates: <strong>${tableMates.join(", ")}</strong></p>
+                `;
+            } else {
+                resultDiv.innerHTML = "<p>No matching name found. Please try again.</p>";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Welcome to the Event!</h1>
+    <p>Enter your name to find your seating table and today's agenda:</p>
+    <input type="text" id="nameInput" oninput="searchName()" placeholder="Type your name here...">
+    <div id="result" class="result"></div>
+</body>
+</html>

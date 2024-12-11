@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table Seating and Agenda</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+        body {
+            font-family: 'Great Vibes', cursive;
+            margin: 0;
+            padding: 0;
+            background: url('images/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 400px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: transparent;
+            color: black;
+            text-align: center;
+            
+        }
+        h1, h3, p {
+            background: linear-gradient(to right, gold, white, black);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: !important;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            font-size: 25px;
+        }
+        strong {
+            background: linear-gradient(to right, gold, white);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: !important;
+        }
+    </style>
+    <script>
+        const data = [
+            { name: "John Doe", table: "Table 1" },
+            { name: "Jane Smith", table: "Table 1" },
+            { name: "Alice Johnson", table: "Table 2" },
+            { name: "Bob Brown", table: "Table 1" },
+            { name: "Mary White", table: "Table 2" }
+        ];
+        const agenda = "<br><b>Traditional Wedding Agenda (Gusaba and Gukwa)</b><p><br>9:00 AM – Arrival of Guests  <br>Guests are welcomed and seated. Traditional drinks such as milk and sorghum beer may be served.<br>10:00 AM – Introduction of Families  <br>The bride and groom’s families meet, greet, and exchange pleasantries.<br>10:30 AM – Bride Price (Gusaba Ceremony)  <br>The groom’s family formally asks for the bride’s hand in marriage, presenting gifts (e.g., cows or symbolic items) as a bride price.<br>11:30 AM – Family Blessings and Advice  <br>Elders from both sides offer blessings and advice to the bride and groom.<br>12:00 PM – Traditional Entertainment  <br>Traditional dances and songs (e.g., Intore dancers) performed to celebrate the union.<br>1:00 PM – Sharing a Traditional Meal  <br>Guests enjoy Rwandan dishes, including isombe, ubugari, goat meat, and beans.<br>2:00 PM – Gifting Ceremony</p>";
+
+        function searchName() {
+            const input = document.getElementById("nameInput").value.toLowerCase();
+            const resultDiv = document.getElementById("result");
+            const result = data.find(person => person.name.toLowerCase().includes(input));
+
+            if (input.trim() === "") {
+                resultDiv.innerHTML = `
+                    <h3>Welcome to the Wedding!</h3>
+                    <p>Today's agenda: <strong>${agenda}</strong></p>
+                `;
+            } else if (result) {
+                const tableMates = data
+                    .filter(person => person.table === result.table && person.name.toLowerCase() !== result.name.toLowerCase())
+                    .map(person => person.name);
+
+                resultDiv.innerHTML = `
+                    <h3>Welcome, ${result.name}!</h3>
+                    <p>Your table: <strong>${result.table}</strong></p>
+                    <p>Today's agenda: ${agenda}</p>
+                    <p>Your tablemates: <strong>${tableMates.join(", ")}</strong></p>
+                `;
+            } else {
+                resultDiv.innerHTML = "<p>No matching name found. Please try again.</p>";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Welcome to the Event!</h1>
+    <p>Enter your name to find your seating table and today's agenda:</p>
+    <input type="text" id="nameInput" oninput="searchName()" placeholder="Type your name here...">
+    <div id="result" class="result"></div>
+</body>
+</html>

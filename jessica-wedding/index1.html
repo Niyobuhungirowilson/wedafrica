@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table Seating and Agenda</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 300px;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+    </style>
+    <script>
+        const data = [
+            { name: "John Doe", table: 1, mates: ["Jane Smith", "Bob Brown"], agenda: "Wedding Ceremony and Reception" },
+            { name: "Jane Smith", table: 1, mates: ["John Doe", "Bob Brown"], agenda: "Wedding Ceremony and Reception" },
+            { name: "Alice Johnson", table: 2, mates: ["Mary White"], agenda: "Wedding Ceremony and Reception" },
+            { name: "Bob Brown", table: 1, mates: ["John Doe", "Jane Smith"], agenda: "Wedding Ceremony and Reception" },
+            { name: "Mary White", table: 2, mates: ["Alice Johnson"], agenda: "Wedding Ceremony and Reception" }
+        ];
+
+        const defaultAgenda = "Wedding Ceremony and Reception";
+
+        function searchName() {
+            const input = document.getElementById("nameInput").value.toLowerCase();
+            const resultDiv = document.getElementById("result");
+            const result = data.find(person => person.name.toLowerCase().includes(input));
+
+            if (result) {
+                const tableMates = data
+                    .filter(person => person.table === result.table && person.name.toLowerCase() !== result.name.toLowerCase())
+                    .map(person => person.name);
+
+                resultDiv.innerHTML = `
+                    <h3>Welcome, ${result.name}!</h3>
+                    <p>Your table number: <strong>${result.table}</strong></p>
+                    <p>Today's agenda: <strong>${result.agenda}</strong></p>
+                    <p>Your tablemates: <strong>${tableMates.join(", ")}</strong></p>
+                `;
+            } else if (input.trim() === "") {
+                resultDiv.innerHTML = `
+                    <h3>Welcome to the Wedding!</h3>
+                    <p>Today's agenda: <strong>${defaultAgenda}</strong></p>
+                `;
+            } else {
+                resultDiv.innerHTML = "<p>No matching name found. Please try again.</p>";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Welcome to the Event!</h1>
+    <p>Enter your name to find your seating table and today's agenda:</p>
+    <input type="text" id="nameInput" oninput="searchName()" placeholder="Type your name here...">
+    <div id="result" class="result"></div>
+</body>
+</html>
