@@ -45,25 +45,15 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: !important;
         }
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            input {
-                font-size: 14px;
-            }
-            h1 {
-                font-size: 24px;
-            }
-            h3 {
-                font-size: 20px;
-            }
-            p {
-                font-size: 16px;
-            }
-        }
+       
 
-        @media (max-width: 480px) {
+        @media only screen and (min-device-width: 400px) {
+            body {
+                background: url('images/back.jpeg') no-repeat fixed;
+                background-size: cover;
+                margin: 0;
+                padding: 0;
+            }
             input {
                 font-size: 12px;
                 padding: 8px;
@@ -80,6 +70,15 @@
         }
     </style>
     <script>
+        function enforceLandscape() {
+            if (window.innerHeight > window.innerWidth) {
+                alert("For the best experience, please rotate your device to landscape mode.");
+            }
+        }
+
+        window.onload = enforceLandscape;
+        window.onresize = enforceLandscape;
+        
         const data = [
             { name: "John Doe", table: "Table 1" },
             { name: "Jane Smith", table: "Table 1" },
@@ -113,8 +112,8 @@
             } else {
                 resultDiv.innerHTML = "<p>No matching name found. Please try again.</p>";
             }
-        }
-    </script>
+        
+        </script>
 </head>
 <body>
     <h1>Welcome to the Event!</h1>
