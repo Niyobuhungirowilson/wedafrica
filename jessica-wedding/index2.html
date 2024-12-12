@@ -55,17 +55,24 @@
                 padding: 0;
             }
             input {
-                font-size: 12px;
-                padding: 8px;
+
+            padding: 10px;
+            margin-bottom: 20px;
+            width: 80%;
+            max-width: 400px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+
             }
-            h1 {
-                font-size: 20px;
-            }
-            h3 {
-                font-size: 18px;
-            }
-            p {
-                font-size: 14px;
+            h1, h3, p {
+            background: linear-gradient(to right, gold, white, black);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: !important;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            font-size: 25px;
             }
         }
     </style>
@@ -78,7 +85,7 @@
 
         window.onload = enforceLandscape;
         window.onresize = enforceLandscape;
-        
+
         const data = [
             { name: "John Doe", table: "Table 1" },
             { name: "Jane Smith", table: "Table 1" },
